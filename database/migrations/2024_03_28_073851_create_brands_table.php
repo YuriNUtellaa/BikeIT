@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->bigIncrements('brand_id');
             $table->string('name');
-            $table->string('image')->nullable();
-            $table->tinyInteger('status')->default('0');
+            $table->string('images')->nullable();
+            $table->string('status')->default('0');
             $table->softDeletes();
             $table->timestamps();
         });

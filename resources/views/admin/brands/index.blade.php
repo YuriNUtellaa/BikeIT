@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2>Add Brand</h2>
-        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('brands.store') }}" method="post" enctype="multipart/form-data">
 
             @csrf
             <div class="form-group">
@@ -12,37 +12,47 @@
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="statud" name="status">
+                <select class="form-control" id="status" name="status">
+                    <option value="in stock">In Stock</option>
+                    <option value="not available">Not Available</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="images">Images:</label>
-                <input type="file" class="form-control" id="images" name="images[]" multiple>
+                <input type="file" class="form-control" id="images" name="images[]" accept="image/*" multiple>
             </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="submit" class="btn btn-primary">Add Brand</button>
         </form>
 
         <hr>
 
-        <h2>Products</h2>
+        <h2>Brands</h2>
         <table class="table">
             <thead>
                 <tr>
                     <th>Brand Name</th>
                     <th>Status</th>
                     <th>Images</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($brands as $brand)
                     <tr>
-                        <td>{{ $brand->brand_name }}</td>
+                        <td>{{ $brand->name }}</td>
                         <!-- Display the category -->
                         <td>{{ $brand->status }}</td>
                         <td>
-                            @foreach ($product->images as $image)
-                                <img src="{{ asset('uploads/image' . $image->image) }}" alt="Product Image"
+                                <img src="{{ asset('uploads/image' . $brand->images) }}" alt="Product Image"
                                     style="max-width: 100px;">
-                            @endforeach
+                        </td>
+                        <td>
+                            <a href="{{ route('brands.edit', $brand->brand_id) }}" class="btn btn-primary">Edit</a>
+                            <form method="post" action="{{ route('brands.destroy', $brand->brand_id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

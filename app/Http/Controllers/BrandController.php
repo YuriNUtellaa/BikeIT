@@ -29,7 +29,30 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validatedData = $request->validate([
+            'brand_name' => 'required',
+            'status' => 'required',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $brand = new Brand;
+        $brand->name = $request->brand_name;
+        $brand->status = $request->status;
+
+        // Set the default image path or null if no image is provided
+        if ($request->hasFile('images')) {
+            $file = $request->file('images')[0];
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() .'.'. $ext;
+
+            $file->move('uploads/image',$filename);
+            $brand->images = $filename;
+        }
+
+        $brand->save();
+
+        return redirect()->back()->with('success', 'Product added successfully.');
     }
 
     /**
