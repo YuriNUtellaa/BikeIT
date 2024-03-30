@@ -31,7 +31,7 @@ class BrandController extends Controller
     {
         
         $validatedData = $request->validate([
-            'brand_name' => 'required',
+            'name' => 'required',
             'status' => 'required',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
@@ -66,24 +66,36 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Brand $brand)
     {
-        //
+        return view('admin.brands.edit', compact('brand'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Brand $brand)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'status' => 'required',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+    
+        // Update the supplier with validated data
+        $brand->update($validatedData);
+    
+        // Redirect back with success message
+        return redirect()->route('brands.index')->with('success', 'Supplier updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+
+        return redirect()->route('brands.index')->with('success', 'Supplier deleted successfully.');
     }
 }
