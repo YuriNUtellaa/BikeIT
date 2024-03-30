@@ -18,10 +18,14 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigIncrements('customer_id');
             $table->string('customer_name');
-            $table->string('phone_number');
+            $table->string('phone_number')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->string('email');
             $table->softDeletes();
             $table->timestamps();
+
+
+
         });
     }
 
@@ -30,6 +34,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('profile_picture');
+        });
         Schema::dropIfExists('customers');
+
     }
 };

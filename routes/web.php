@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VerificationController;
+use App\Http\Controllers\customer\customerprof;
+use App\Http\Controllers\customer\ShopController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -33,18 +36,16 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 
 //==========================================================================================
-//admin dashboard
+//admin dashboard (Admin side)
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'dashboard']);
     Route::get('/mark-notification-read/{id}', [NotificationController::class, 'markNotificationAsRead'])
     ->name('markNotificationRead');
+    Route::get('product', [ProductController::class, 'product']);
+    Route::post('admin/products', [ProductController::class, 'store'])->name('products.store');
 
 });
-//==========================================================================================
 
-
-
-//==========================================================================================
 //pagtapos ma verify sa maitrap ma vevverify na sya sa navbar ng admin dashboard
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // This will mark the email as verified
@@ -52,4 +53,14 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('/home'); // Redirect the user after verification
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
+//==========================================================================================
+
+
+
+//==========================================================================================
+//(Customer side)
+Route::get('customer/cusmanage', [customerprof::class, 'customerprof']);
+//customer profile
+Route::put('customer/profile/update', [customerprof::class, 'update'])->name('customer.profile.update');
+Route::get('customer/shop', [ShopController::class, 'shop']);
 //==========================================================================================

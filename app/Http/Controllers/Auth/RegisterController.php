@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 use App\Notifications\NewUserRegistered;
-
+use App\Models\Customer;
 class RegisterController extends Controller
 {
     /*
@@ -77,6 +77,14 @@ class RegisterController extends Controller
 //     foreach ($admins as $admin) {
 //         $admin->notify(new NewUserRegistered($user));
 //     }
+
+    // Create a customer profile for the user
+    $customer = new \App\Models\Customer();
+    $customer->user_id = $user->id;
+    $customer->customer_name = $data['name'];
+    $customer->email = $data['email'];
+    $customer->save();
+
 
     return $user;
 }
