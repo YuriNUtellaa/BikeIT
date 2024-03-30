@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VerificationController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\customer\customerprof;
 use App\Http\Controllers\customer\ShopController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -44,6 +45,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('product', [ProductController::class, 'product']);
     Route::post('admin/products', [ProductController::class, 'store'])->name('products.store');
 
+});
+
+Route::prefix('/brands')->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/index', [BrandController::class, 'dashboard']);
+    Route::get('/create', [BrandController::class, 'create'])->name('brands.create');
+    Route::post('/store', [BrandController::class, 'store'])->name('brands.store');
+    Route::get('/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
+    Route::put('/{brand}/update', [BrandController::class, 'update'])->name('brands.update');
+    Route::delete('/{brand}', [BrandController::class, 'destroy'])->name('brands.destroy');
 });
 
 //pagtapos ma verify sa maitrap ma vevverify na sya sa navbar ng admin dashboard
