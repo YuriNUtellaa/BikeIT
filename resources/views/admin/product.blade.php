@@ -53,12 +53,12 @@
                         <tr>
                             <td>{{ $product->product_name }}</td>
                             <!-- Display the category -->
-                            <td>{{ $product->Category }}</td>
+                            <td>{{ $product->category }}</td>
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->sell_price }}</td>
                             <td>{{ $product->cost_price }}</td>
                             <td>
-                                @foreach ($product->Images as $image)
+                                @foreach ($product->images as $image)
                                     <img src="{{ asset('uploads/image' . $image->Image) }}" alt="Product Image"
                                         style="max-width: 100px;">
                                 @endforeach

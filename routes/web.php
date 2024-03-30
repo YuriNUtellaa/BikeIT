@@ -44,11 +44,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     ->name('markNotificationRead');
     Route::get('product', [ProductController::class, 'product']);
     Route::post('admin/products', [ProductController::class, 'store'])->name('products.store');
-
 });
 
 Route::prefix('/brands')->middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/index', [BrandController::class, 'dashboard']);
+    Route::get('/index', [BrandController::class, 'index'])->name('brands.index');
     Route::get('/create', [BrandController::class, 'create'])->name('brands.create');
     Route::post('/store', [BrandController::class, 'store'])->name('brands.store');
     Route::get('/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
