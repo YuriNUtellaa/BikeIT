@@ -9,20 +9,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'product_id';
     protected $fillable = [
         'product_name',
         'category',
         'description',
-        'Image',// Add 'Image' to
+        'image',// Add 'Image' to
         'sell_price',
         'cost_price'
 
     ];
 
-    /**
-     * Get the images for the product.
-     */
     public function images(): HasMany
     {
         return $this->hasMany(Product::class, 'product_id', 'id');

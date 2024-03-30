@@ -16,9 +16,9 @@ return new class extends Migration
 
 
             $table->string('product_name');
-            $table->string('Category');
+            $table->string('category');
             $table->string('description');
-            $table->string('Image');
+            $table->string('image');
             $table->float('sell_price');
             $table->float('cost_price');
             $table->softDeletes();
