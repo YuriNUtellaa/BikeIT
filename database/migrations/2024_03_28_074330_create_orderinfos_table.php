@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->index();
             $table->foreign('customer_id')->references('customer_id')->on('customers')->onDelete('cascade');
             $table->date('date_place');
-            $table->date('date_shipped');
+            $table->date('date_shipped')->nullable();
             $table->float('shipping_fee');
             $table->string('status');
             $table->softDeletes();
