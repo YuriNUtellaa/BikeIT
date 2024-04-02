@@ -13,9 +13,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\customer\customerprof;
 use App\Http\Controllers\customer\ShopController;
 use App\Http\Controllers\IndivProductController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,11 +63,19 @@ Route::prefix('/products')->group(function () {
     Route::get('/{product}', [IndivProductController::class, 'index'])->name('products.info');
     Route::get('/{product}/order', [OrderController::class, 'create'])->name('products.order');
     Route::POST('/store', [OrderController::class, 'store'])->name('orders.store');
-});
+})->middleware(['auth', 'signed']);
 
 Route::prefix('/carts')->group(function () {
+    Route::GET('', [CartController::class, 'index'])->name('cart');
     Route::GET('/{id}/add', [CartController::class, 'add_cart'])->name('cart.add');
-});
+    route::delete('remove-from-cart', [CartController::class, 'destroy'])->name('remove_from_cart');
+    route::patch('update-cart', [CartController::class, 'update'])->name('update_cart');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+})->middleware(['auth', 'signed']);
+
+Route::prefix('/mail')->group(function () {
+    Route::GET('/send', [MailController::class, 'sendMail'])->name('sendMail');
+})->middleware(['auth', 'signed']);
 //pagtapos ma verify sa maitrap ma vevverify na sya sa navbar ng admin dashboard
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // This will mark the email as verified

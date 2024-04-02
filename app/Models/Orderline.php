@@ -11,7 +11,7 @@ class Orderline extends Model
     protected $table = 'orderlines'; // Specify the table name if it's different from the model name
     protected $fillable = [
         'orderinfo_id',
-        'poduct_id',
+        'product_id',
         'quantity',
     ];
 }

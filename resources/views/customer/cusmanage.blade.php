@@ -1,3 +1,6 @@
+@extends('layouts.header')
+@section('content')
+
 <form action="{{ route('customer.profile.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -16,3 +19,5 @@
 
     <button type="submit">Update Profile</button>
 </form>
+
+@endsection

@@ -11,6 +11,8 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <meta http-equiv="refresh" content="">
+
     
     <link rel="stylesheet" type="text/css" href="{{ asset('customer/css/bootstrap.min.css') }}">
     <!-- Font Awesome CSS -->
@@ -174,7 +176,7 @@
     <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
         <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{route('home')}}">
                     {{-- Logo --}}
                     <img src="customer/images/main-logo.png" class="logo">
                 </a>
@@ -313,9 +315,23 @@
                                     <p>Total: <span class="text-info">P {{$total}}</span></p>
                                 </div>
                             </div>
+                            @if(session('cart'))
+                                @foreach(session('cart') as $id=>$details)
+                                <div class="row cart-detail">
+                                    <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                        <img src="{{asset('image')}}/{{$details['image']}}">
+                                    </div>
+                                    <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                        <p>{{$details['product_name']}}</p>
+                                        <span class="price text-info">P{{$details['sell_price']}}</span>
+                                        <span class="count">Quantity:{{$details['quantity']}}</span>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12 text-center checkout">
-                                    <a href="" class="btn btn-primary btn btn-block">View all</a>
+                                    <a href="{{route('cart')}}" class="btn btn-primary btn btn-block">View all</a>
                                 </div>
                             </div>
                         </div>
@@ -324,11 +340,20 @@
             </div>
         </div>
     </header>
+    <br/>
+    <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
+        @endif
         <section id="mobile-products" class="product-store position-relative padding-large no-padding-top">
-        <main style="padding-top: 100px; position: relative;">
-            @yield('content')
-        </main>   
-        </section>    
+            <main style="padding-top: 150px; position: relative;">
+                @yield('content')
+            </main>   
+            </section>  
+    </div>
+    @yield('scripts')  
     <script src="{{ asset('customer/js/jquery-1.11.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="{{ asset('customer/js/bootstrap.bundle.min.js') }}"></script>

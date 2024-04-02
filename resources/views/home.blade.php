@@ -25,10 +25,7 @@
                                         <form action="{{ route('cart.add', $product->product_id) }}" method="GET" class="mt-2">
                                             @csrf
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <input type="number" name="quantity" value="1" min="1" class="form-control"> <!-- Add form-control class -->
-                                                </div>
-                                                <div class="col-md-8 mt-2 mt-md-0"> <!-- Change here -->
+                                                <div class="col-md-10 mt-1 mt-md-0"> <!-- Change here -->
                                                     <button type="submit" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline">
                                                             <use xlink:href="#cart-outline"></use>
                                                         </svg></button>
@@ -58,12 +55,6 @@
         {{ session('success') }}
     </div>
 @endif   
-    <script src="{{ asset('customer/js/jquery-1.11.0.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="{{ asset('customer/js/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('customer/js/plugins.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('customer/js/script.js') }}"></script>
-
 </body>
 
 @endsection
