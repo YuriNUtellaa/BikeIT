@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 
-<form action="{{ route('customer.profile.update') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('customer.profile.update', ['customer' => $customer->customer_id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -15,7 +15,7 @@
     <input type="email" name="email" value="{{ $customer->email ?? '' }}" required>
 
     <label for="profile_picture">Profile Picture</label>
-    <input type="file" name="profile_picture">
+    <input type="text" name="">
 
     <button type="submit">Update Profile</button>
 </form>

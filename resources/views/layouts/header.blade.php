@@ -136,9 +136,9 @@
     <div class="search-popup">
         <div class="search-popup-container">
 
-            <form role="search" method="get" class="search-form" action="">
+            <form role="search" method="get" class="search-form" action="{{route('search')}}">
                 <input type="search" id="search-form" class="search-field" placeholder="Type and press enter"
-                    value="" name="s" />
+                    value="" name="product_name" />
                 <button type="submit" class="search-submit"><svg class="search">
                         <use xlink:href="#search"></use>
                     </svg></button>
@@ -176,7 +176,7 @@
     <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
         <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{route('home')}}">
+                <a class="navbar-brand" href="/home">
                     {{-- Logo --}}
                     <img src="customer/images/main-logo.png" class="logo">
                 </a>

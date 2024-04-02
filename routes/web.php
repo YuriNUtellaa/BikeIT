@@ -15,6 +15,7 @@ use App\Http\Controllers\customer\ShopController;
 use App\Http\Controllers\IndivProductController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,7 +37,8 @@ Route::get('/', function () {
 //==========================================================================================
 //after ma very mapupunta sa home
 Auth::routes(['verify' => true]);
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home/search', [SearchController::class, 'index'])->name('search');
 //==========================================================================================
 
 
@@ -88,9 +90,12 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 
 //==========================================================================================
-//(Customer side)
-Route::get('customer/cusmanage', [customerprof::class, 'customerprof']);
+Route::prefix('/customer')->group(function () {
+    Route::get('/cusmanage', [customerprof::class, 'customerprof']);
 //customer profile
-Route::put('customer/profile/update', [customerprof::class, 'update'])->name('customer.profile.update');
-Route::get('customer/shop', [ShopController::class, 'shop']);
+    Route::put('/{customer}/update', [customerprof::class, 'update'])->name('customer.profile.update');
+    Route::get('/shop', [ShopController::class, 'shop']);
+})->middleware(['auth', 'signed']);
+//(Customer side)
+
 //==========================================================================================

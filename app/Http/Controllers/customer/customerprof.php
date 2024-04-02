@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\customer;
 
 use App\Models\Customer;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class customerprof extends Controller
 {
     public function customerprof()
     {
-       return view('customer.cusmanage');
+        $customer = Customer::where('user_id', auth()->user()->id)->first();
+       return view('customer.cusmanage', compact('customer'));
     }
 
-    public function update(Request $request)
+    public function update(Customer $customer, Request $request)
     {
         $request->validate([
             'customer_name' => 'required|string',
@@ -26,10 +27,10 @@ class customerprof extends Controller
         $customer = $user->customer;
 
         // If customer doesn't exist, create a new one
-        if (!$customer) {
-            $customer = new Customer();
-            $customer->user_id = $user->id;
-        }
+        // if (!$customer) {
+        //     $customer = new Customer();
+        //     $customer->user_id = $user->id;
+        // }
 
         // Update user's name and email
         $user->name = $request->input('customer_name');
