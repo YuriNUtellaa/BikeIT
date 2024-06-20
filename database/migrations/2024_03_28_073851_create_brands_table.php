@@ -15,7 +15,6 @@ return new class extends Migration
             $table->bigIncrements('brand_id');
             $table->string('name');
             $table->string('images')->nullable();
-            $table->string('status')->default('0');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -14,4 +14,14 @@ class Stock extends Model
         'product_id',
         'quantity',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class, 'stocklines','stock_id', 'supplier_id');
+    }
 }

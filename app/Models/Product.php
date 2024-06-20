@@ -12,9 +12,8 @@ class Product extends Model
     protected $primaryKey = 'product_id';
     protected $fillable = [
         'product_name',
-        'category',
+        'brand_id',
         'description',
-        'image',// Add 'Image' to
         'sell_price',
         'cost_price'
 
@@ -22,6 +21,16 @@ class Product extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(Product::class, 'product_id', 'id');
+        return $this->hasMany(Image::class, 'product_id', 'product_id');
+    }
+
+    public function stock()
+    {
+        return $this->hasOne(Stock::class, 'product_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 }

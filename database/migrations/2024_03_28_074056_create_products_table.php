@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('product_id');
-
-
             $table->string('product_name');
-            $table->string('category');
+            $table->unsignedBigInteger('brand_id')->index();
+            $table->foreign('brand_id')->references('brand_id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
             $table->string('description');
-            $table->string('image');
             $table->float('sell_price');
             $table->float('cost_price');
             $table->softDeletes();

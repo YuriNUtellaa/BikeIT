@@ -17,4 +17,14 @@ class Orderinfo extends Model
         'shipping_fee',
         'status'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'orderline', 'orderinfo_id', 'item_id')->withPivot('quantity');
+    }
 }

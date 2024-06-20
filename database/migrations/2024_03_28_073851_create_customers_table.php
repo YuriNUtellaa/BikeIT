@@ -17,11 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigIncrements('customer_id');
-            $table->string('customer_name');
-            $table->string('phone_number')->nullable();
+            $table->string('fname');
+            $table->string('lname');
+            $table->string('phone')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->string('email');
-            $table->string('address')->nullable();
+            $table->string('addressline')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
